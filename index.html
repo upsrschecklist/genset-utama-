@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Genset 650kVA Online | RS Hermina Solo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0f766e;
+            --primary-hover: #115e59;
+            --accent: #0ea5e9;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #cbd5e1;
+            --danger: #ef4444;
+            --success: #10b981;
+        }
+
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            background-color: var(--bg-color); 
+            margin: 0; 
+            padding: 24px; 
+            color: var(--text-main); 
+            line-height: 1.5;
+        }
+
+        .container { 
+            max-width: 700px; 
+            margin: auto; 
+            background: var(--card-bg); 
+            padding: 32px; 
+            border-radius: 16px; 
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05); 
+        }
+
+        .header-brand {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .header-brand h4 {
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--primary);
+            margin: 0 0 4px 0;
+            font-weight: 700;
+        }
+
+        h2 { 
+            text-align: center; 
+            color: var(--text-main); 
+            margin: 0 0 12px 0; 
+            font-size: 24px;
+        }
+
+        .status-koneksi { 
+            text-align: center; 
+            font-size: 13px; 
+            margin-bottom: 28px; 
+            color: var(--success); 
+            font-weight: 500;
+            background: #f0fdf4;
+            padding: 8px 12px;
+            border-radius: 9999px;
+            display: inline-block;
+            width: 100%;
+            box-sizing: border-box;
+            border: 1px solid #bbf7d0;
+        }
+
+        .form-group { 
+            margin-bottom: 20px; 
+        }
+
+        label { 
+            font-weight: 600; 
+            display: block; 
+            margin-bottom: 8px; 
+            font-size: 13px;
+            color: #475569;
+        }
+
+        input[type="text"], input[type="date"], input[type="time"], input[type="number"], input[type="month"], select, textarea { 
+            width: 100%; 
+            padding: 12px 14px; 
+            border: 1.5px solid var(--border-color); 
+            border-radius: 10px; 
+            box-sizing: border-box; 
+            font-size: 14px; 
+            font-family: inherit;
+            background: #fff;
+            color: var(--text-main);
+            transition: all 0.2s ease;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.15);
+        }
+
+        /* Opsi Tombol Pilihan Foto */
+        .photo-options {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .btn-photo-opt {
+            flex: 1;
+            padding: 10px;
+            background: #f1f5f9;
+            color: var(--text-main);
+            border: 1.5px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s;
+            margin-top: 0;
+        }
+
+        .btn-photo-opt:hover {
+            background: #e2e8f0;
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .file-info {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-style: italic;
+            margin-top: 4px;
+        }
+
+        .row-group { 
+            display: flex; 
+            gap: 16px; 
+        }
+        .row-group > div { 
+            flex: 1; 
+        }
+
+        button { 
+            width: 100%; 
+            padding: 14px; 
+            background: var(--primary); 
+            color: white; 
+            border: none; 
+            border-radius: 10px; 
+            font-size: 15px; 
+            cursor: pointer; 
+            font-weight: 600; 
+            margin-top: 10px; 
+            transition: background 0.2s, transform 0.1s;
+        }
+
+        button:hover { 
+            background: var(--primary-hover); 
+        }
+
+        button:active {
+            transform: scale(0.99);
+        }
+
+        button:disabled { 
+            background: #cbd5e1; 
+            cursor: not-allowed; 
+        }
+        
+        .action-box { 
+            background: #f0fdf4; 
+            padding: 20px; 
+            border-radius: 12px; 
+            margin-top: 32px; 
+            border: 1.5px solid #bbf7d0;
+        }
+
+        .btn-pdf { 
+            background: #dc2626; 
+            margin-top: 12px;
+        }
+        .btn-pdf:hover { 
+            background: #b91c1c; 
+        }
+
+        .section-title {
+            color: var(--text-main);
+            text-align: center;
+            font-size: 18px;
+            margin-top: 36px;
+            margin-bottom: 16px;
+            font-weight: 700;
+        }
+
+        .history-card { 
+            border: 1.5px solid #e2e8f0; 
+            padding: 16px; 
+            border-radius: 12px; 
+            margin-bottom: 16px; 
+            background: #ffffff; 
+            font-size: 13px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            transition: transform 0.2s;
+        }
+
+        .history-card:hover {
+            border-color: #cbd5e1;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+        }
+
+        .history-card img { 
+            max-width: 100%; 
+            height: auto; 
+            border-radius: 8px; 
+            margin-top: 12px; 
+            max-height: 200px; 
+            object-fit: contain;
+            border: 1px solid #e2e8f0;
+        }
+
+        .history-header { 
+            display: flex; 
+            justify-content: space-between; 
+            font-weight: 600; 
+            border-bottom: 1.5px solid #f1f5f9; 
+            padding-bottom: 8px; 
+            margin-bottom: 10px; 
+            color: var(--primary); 
+            font-size: 14px;
+        }
+
+        .history-body-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+            color: #475569;
+        }
+
+        .kendala-text { 
+            color: #991b1b; 
+            background: #fef2f2; 
+            padding: 10px; 
+            border-radius: 8px; 
+            margin-top: 10px; 
+            font-weight: 500; 
+            border: 1px solid #fecaca;
+        }
+
+        .loading-text { 
+            text-align: center; 
+            color: var(--text-muted); 
+            font-style: italic; 
+            padding: 20px;
+        }
+
+        /* Area Cetak Print/PDF */
+        #printArea { display: none; }
+        @media print {
+            body { background: white; padding: 0; }
+            .container { display: none; }
+            #printArea { display: block; }
+            #printArea table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 10px; }
+            #printArea th, #printArea td { border: 1px solid #000; padding: 6px; text-align: center; }
+            #printArea th { background-color: #f1f5f9; font-weight: bold; }
+            #printArea h2 { text-align: center; margin-bottom: 4px; font-size: 16px; }
+            #printArea h3 { text-align: center; margin: 0 0 2px 0; font-size: 12px; }
+            #printArea p { text-align: center; margin-top: 0; font-size: 11px; }
+            #printArea img { max-height: 50px; object-fit: cover; }
+            @page { size: A4 landscape; margin: 10mm; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header-brand">
+        <h4>RS Hermina Solo</h4>
+        <h2>Genset Utama 650kVA</h2>
+    </div>
+    
+    <div class="status-koneksi" id="statusInfo">Mengambil data dari server... 🔄</div>
+    
+    <form id="formGenset">
+        <div class="row-group">
+            <div class="form-group">
+                <label>Tanggal Pemeriksaan</label>
+                <input type="date" id="tanggal" required>
+            </div>
+            <div class="form-group">
+                <label>Jam Pemeriksaan</label>
+                <input type="time" id="jam" required>
+            </div>
+        </div>
+
+        <div class="row-group">
+            <div class="form-group">
+                <label>Posisi Panel AMF</label>
+                <select id="amf" required>
+                    <option value="Auto">Auto</option>
+                    <option value="Manual">Manual</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Kondisi Aki</label>
+                <select id="aki" required>
+                    <option value="Normal">Normal</option>
+                    <option value="Tidak normal / Drop">Tidak normal / Drop</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row-group">
+            <div class="form-group">
+                <label>Oli Mesin</label>
+                <select id="oli" required>
+                    <option value="Cukup & Bersih">Cukup & Bersih</option>
+                    <option value="Kurang / Kotor">Kurang / Kotor</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Air Radiator</label>
+                <select id="radiator" required>
+                    <option value="Penuh">Penuh</option>
+                    <option value="Kurang">Kurang</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row-group">
+            <div class="form-group">
+                <label>Kapasitas BBM</label>
+                <select id="bbm" required>
+                    <option value="Penuh">Penuh</option>
+                    <option value="3/4">3/4</option>
+                    <option value="1/2">1/2</option>
+                    <option value="1/4">1/4</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Pemanasan Genset?</label>
+                <select id="pemanasan" onchange="toggleWaktu()" required>
+                    <option value="Iya">Iya</option>
+                    <option value="Tidak">Tidak</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group" id="waktuGroup">
+            <label>Waktu Pemanasan (Menit)</label>
+            <input type="number" id="waktu" placeholder="Contoh: 15" min="0">
+        </div>
+
+        <div class="form-group">
+            <label>Keterangan / Kendala (Opsional)</label>
+            <textarea id="keterangan" rows="3" placeholder="Tuliskan kendala jika ada..."></textarea>
+        </div>
+
+        <!-- Input Bukti Foto dengan 2 Opsi -->
+        <div class="form-group">
+            <label>Bukti Foto (Opsional)</label>
+            <div class="photo-options">
+                <button type="button" class="btn-photo-opt" onclick="triggerCamera()">📸 Ambil Foto Langsung</button>
+                <button type="button" class="btn-photo-opt" onclick="triggerGallery()">🖼️ Pilih di Galeri</button>
+            </div>
+            <input type="file" id="fotoKamera" accept="image/*" capture="environment" style="display: none;" onchange="handleFileSelect(this)">
+            <input type="file" id="fotoGaleri" accept="image/*" style="display: none;" onchange="handleFileSelect(this)">
+            <div class="file-info" id="fileInfoText">Belum ada foto yang dipilih.</div>
+        </div>
+        
+        <button type="submit" id="btnSubmit">🚀 Simpan ke Server</button>
+    </form>
+
+    <div class="action-box">
+        <label>Pilih Bulan Laporan & Riwayat</label>
+        <input type="month" id="filterBulan" onchange="renderHistory()">
+        <button class="btn-pdf" onclick="printPDF()">🖨️ Cetak / Simpan PDF</button>
+    </div>
+    
+    <h3 class="section-title">Riwayat Pengecekan Genset</h3>
+    <div id="historyContainer">
+        <p class="loading-text">Sedang memuat data riwayat...</p>
+    </div>
+</div>
+
+<!-- Elemen Cetak Laporan -->
+<div id="printArea">
+    <h3>RS HERMINA SOLO</h3>
+    <h2>LAPORAN PEMERIKSAAN GENSET 650kVA</h2>
+    <p id="printSubtitle">Bulan: -</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Tgl & Jam</th>
+                <th>AMF</th>
+                <th>Aki</th>
+                <th>Oli</th>
+                <th>Radiator</th>
+                <th>BBM</th>
+                <th>Pemanasan</th>
+                <th>Kendala</th>
+                <th>Foto</th>
+            </tr>
+        </thead>
+        <tbody id="printTableBody"></tbody>
+    </table>
+</div>
+
+<script>
+    // ⬇️ MASUKKAN URL GOOGLE SCRIPT ANDA DI SINI ⬇️
+    const URL_GOOGLE_SCRIPT = "https://script.google.com/macros/s/AKfycbw_DTsHNSlMoYosp7ErA1Wl6ymuCP2TnfTcidp0rwWSf6yHTIPGCrpT4NvCXBBSlIgm3g/exec";
+    // --------------------------------------------------
+
+    let globalData = [];
+    let selectedFile = null;
+
+    document.getElementById('tanggal').valueAsDate = new Date();
+    const now = new Date();
+    document.getElementById('jam').value = now.getHours().toString().padStart(2, '0') + ':' + now.getMinutes().toString().padStart(2, '0');
+    document.getElementById('filterBulan').value = now.getFullYear() + '-' + (now.getMonth() + 1).toString().padStart(2, '0');
+
+    function toggleWaktu() {
+        const val = document.getElementById('pemanasan').value;
+        document.getElementById('waktuGroup').style.display = val === 'Iya' ? 'block' : 'none';
+        if(val === 'Tidak') document.getElementById('waktu').value = '-';
+    }
+
+    function triggerCamera() {
+        document.getElementById('fotoKamera').click();
+    }
+
+    function triggerGallery() {
+        document.getElementById('fotoGaleri').click();
+    }
+
+    function handleFileSelect(input) {
+        if (input.files && input.files[0]) {
+            selectedFile = input.files[0];
+            document.getElementById('fileInfoText').innerText = "✔️ File terpilih: " + selectedFile.name;
+            document.getElementById('fileInfoText').style.color = "var(--success)";
+        }
+    }
+
+    function getBase64Image(file, callback) {
+        if (!file) return callback("");
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const img = new Image();
+            img.onload = function() {
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                canvas.width = 300; 
+                canvas.height = (img.height / img.width) * 300;
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                callback(canvas.toDataURL('image/jpeg', 0.5));
+            };
+            img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
+
+    function loadDataFromServer() {
+        if(URL_GOOGLE_SCRIPT === "GANTI_DENGAN_URL_ANDA_DI_SINI") {
+            document.getElementById('statusInfo').innerText = "⚠️ URL Google Script Belum Dimasukkan!";
+            document.getElementById('statusInfo').style.color = "#dc2626";
+            document.getElementById('statusInfo').style.background = "#fef2f2";
+            document.getElementById('statusInfo').style.borderColor = "#fecaca";
+            return;
+        }
+
+        fetch(URL_GOOGLE_SCRIPT)
+            .then(response => response.json())
+            .then(data => {
+                globalData = data;
+                renderHistory();
+                document.getElementById('statusInfo').innerText = "✔️ Terhubung dengan Server (Google Sheets)";
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+                document.getElementById('statusInfo').innerText = "❌ Gagal memuat data. Cek koneksi internet.";
+                document.getElementById('statusInfo').style.color = "#dc2626";
+                document.getElementById('statusInfo').style.background = "#fef2f2";
+                document.getElementById('statusInfo').style.borderColor = "#fecaca";
+                document.getElementById('historyContainer').innerHTML = '<p class="loading-text">Tidak ada data yang dapat ditampilkan.</p>';
+            });
+    }
+
+    function renderHistory() {
+        const container = document.getElementById('historyContainer');
+        container.innerHTML = '';
+        
+        const filterBulan = document.getElementById('filterBulan').value;
+        const filteredData = globalData.filter(item => item.tanggal && item.tanggal.startsWith(filterBulan));
+        
+        const sortedData = [...filteredData].sort((a, b) => {
+            const dateTimeA = new Date(`${a.tanggal} ${a.jam || '00:00'}`);
+            const dateTimeB = new Date(`${b.tanggal} ${b.jam || '00:00'}`);
+            return dateTimeB - dateTimeA;
+        });
+
+        if(sortedData.length === 0) {
+            container.innerHTML = '<p class="loading-text">Tidak ada riwayat pengecekan pada bulan tersebut.</p>';
+            return;
+        }
+
+        sortedData.forEach(item => {
+            let infoKendala = item.keterangan ? `<div class="kendala-text">📝 <strong>Kendala:</strong> ${item.keterangan}</div>` : '';
+            let waktuPemanasan = item.pemanasan === 'Iya' ? `(${item.waktu || '-'} mnt)` : '';
+            container.innerHTML += `
+                <div class="history-card">
+                    <div class="history-header">
+                        <span>📅 ${item.tanggal}</span>
+                        <span>⏰ ${item.jam} WIB</span>
+                    </div>
+                    <div class="history-body-grid">
+                        <div><strong>Panel AMF:</strong> ${item.amf}</div>
+                        <div><strong>Kondisi Aki:</strong> ${item.aki}</div>
+                        <div><strong>Oli Mesin:</strong> ${item.oli}</div>
+                        <div><strong>Air Radiator:</strong> ${item.radiator}</div>
+                        <div><strong>Kapasitas BBM:</strong> ${item.bbm}</div>
+                        <div><strong>Pemanasan:</strong> ${item.pemanasan} ${waktuPemanasan}</div>
+                    </div>
+                    ${infoKendala}
+                    ${item.foto ? `<img src="${item.foto}" alt="Bukti Foto">` : ''}
+                </div>
+            `;
+        });
+    }
+
+    document.getElementById('formGenset').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const btn = document.getElementById('btnSubmit');
+        btn.innerText = "⏳ Sedang mengirim...";
+        btn.disabled = true;
+
+        getBase64Image(selectedFile, function(base64Foto) {
+            let pemanasan = document.getElementById('pemanasan').value;
+            let waktu = document.getElementById('waktu').value;
+            if (pemanasan === 'Tidak') waktu = '-';
+
+            const data = {
+                tanggal: document.getElementById('tanggal').value,
+                jam: document.getElementById('jam').value,
+                amf: document.getElementById('amf').value,
+                aki: document.getElementById('aki').value,
+                oli: document.getElementById('oli').value,
+                radiator: document.getElementById('radiator').value,
+                bbm: document.getElementById('bbm').value,
+                pemanasan: pemanasan,
+                waktu: waktu,
+                keterangan: document.getElementById('keterangan').value,
+                foto: base64Foto
+            };
+
+            fetch(URL_GOOGLE_SCRIPT, {
+                method: 'POST',
+                mode: 'no-cors',
+                body: JSON.stringify(data)
+            })
+            .then(() => {
+                alert('Berhasil! Data tersimpan di server.');
+                document.getElementById('formGenset').reset();
+                document.getElementById('tanggal').valueAsDate = new Date();
+                selectedFile = null;
+                document.getElementById('fileInfoText').innerText = "Belum ada foto yang dipilih.";
+                document.getElementById('fileInfoText').style.color = "var(--text-muted)";
+                
+                btn.innerText = "🚀 Simpan ke Server";
+                btn.disabled = false;
+                
+                document.getElementById('historyContainer').innerHTML = '<p class="loading-text">Memperbarui riwayat dari server...</p>';
+                setTimeout(loadDataFromServer, 2000); 
+            })
+            .catch(error => {
+                alert('Gagal mengirim data. Pastikan ada sinyal internet.');
+                btn.innerText = "🚀 Simpan ke Server";
+                btn.disabled = false;
+            });
+        });
+    });
+
+    function printPDF() {
+        const filterBulan = document.getElementById('filterBulan').value; 
+        
+        if(!filterBulan) return alert('Pilih bulan terlebih dahulu!');
+        
+        const filteredData = globalData.filter(item => item.tanggal && item.tanggal.startsWith(filterBulan));
+        filteredData.sort((a, b) => new Date(a.tanggal) - new Date(b.tanggal));
+
+        if(filteredData.length === 0) return alert('Tidak ada data pengecekan pada bulan tersebut.');
+
+        const [tahun, bulan] = filterBulan.split('-');
+        const namaBulan = new Date(tahun, bulan - 1).toLocaleString('id-ID', { month: 'long', year: 'numeric' });
+        document.getElementById('printSubtitle').innerText = `Periode: ${namaBulan}`;
+
+        const tbody = document.getElementById('printTableBody');
+        tbody.innerHTML = '';
+
+        filteredData.forEach(item => {
+            let imgTag = (item.foto && item.foto.length > 20) ? `<img src="${item.foto}">` : '-';
+            let waktuTeks = item.pemanasan === 'Iya' ? `${item.waktu} mnt` : '-';
+            let kendalaTeks = item.keterangan ? item.keterangan : '-';
+
+            let row = `
+                <tr>
+                    <td>${item.tanggal}<br>${item.jam}</td>
+                    <td>${item.amf}</td>
+                    <td>${item.aki}</td>
+                    <td>${item.oli}</td>
+                    <td>${item.radiator}</td>
+                    <td>${item.bbm}</td>
+                    <td>${item.pemanasan} (${waktuTeks})</td>
+                    <td>${kendalaTeks}</td>
+                    <td>${imgTag}</td>
+                </tr>
+            `;
+            tbody.innerHTML += row;
+        });
+
+        window.print();
+    }
+
+    window.onload = loadDataFromServer;
+</script>
+</body>
+</html>
