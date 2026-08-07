@@ -4,77 +4,138 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Genset 650kVA Online | RS Hermina Solo</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #0f766e;
-            --primary-hover: #115e59;
-            --accent: #0ea5e9;
-            --bg-color: #f8fafc;
-            --card-bg: #ffffff;
-            --text-main: #1e293b;
-            --text-muted: #64748b;
-            --border-color: #cbd5e1;
-            --danger: #ef4444;
-            --success: #10b981;
+            --gold-main: #b8860b;
+            --gold-dark: #8b6508;
+            --gold-gradient: linear-gradient(135deg, #f5d77f 0%, #c59b27 100%);
+            --bg-cream: #f7f3ed;
+            --card-bg: #fffdfa;
+            --card-inner: #f9f5ed;
+            --text-main: #2c2416;
+            --text-muted: #786855;
+            --border-gold: #d4af37;
+            --border-light: #e6dcce;
+            --danger: #dc2626;
+            --success: #059669;
+            --shadow-elegant: 0 15px 35px rgba(139, 101, 8, 0.12), 0 5px 15px rgba(0,0,0,0.04);
         }
 
         body { 
             font-family: 'Plus Jakarta Sans', sans-serif; 
-            background-color: var(--bg-color); 
+            background-color: var(--bg-cream);
+            background-image: radial-gradient(#d8ccb8 0.8px, transparent 0.8px);
+            background-size: 24px 24px;
             margin: 0; 
-            padding: 24px; 
+            padding: 30px 15px; 
             color: var(--text-main); 
             line-height: 1.5;
+            min-height: 100vh;
         }
 
         .container { 
-            max-width: 700px; 
+            max-width: 750px; 
             margin: auto; 
-            background: var(--card-bg); 
-            padding: 32px; 
-            border-radius: 16px; 
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05); 
+            background: linear-gradient(145deg, #ffffff 0%, #f6f0e4 100%); 
+            padding: 35px 30px; 
+            border-radius: 20px; 
+            box-shadow: var(--shadow-elegant);
+            border: 2px solid var(--border-gold);
+            position: relative;
         }
 
         .header-brand {
             text-align: center;
             margin-bottom: 24px;
+            border-bottom: 2px solid rgba(212, 175, 55, 0.3);
+            padding-bottom: 20px;
         }
 
         .header-brand h4 {
+            font-family: 'Cinzel', serif;
             font-size: 13px;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: var(--primary);
-            margin: 0 0 4px 0;
+            letter-spacing: 2.5px;
+            color: var(--gold-dark);
+            margin: 0 0 6px 0;
             font-weight: 700;
         }
 
         h2 { 
+            font-family: 'Cinzel', serif;
             text-align: center; 
             color: var(--text-main); 
-            margin: 0 0 12px 0; 
+            margin: 0; 
             font-size: 24px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
         }
 
         .status-koneksi { 
             text-align: center; 
             font-size: 13px; 
-            margin-bottom: 28px; 
+            margin-bottom: 20px; 
             color: var(--success); 
-            font-weight: 500;
-            background: #f0fdf4;
-            padding: 8px 12px;
-            border-radius: 9999px;
-            display: inline-block;
+            font-weight: 600;
+            background: #ecfdf5;
+            padding: 10px 16px;
+            border-radius: 50px;
+            display: block;
             width: 100%;
             box-sizing: border-box;
-            border: 1px solid #bbf7d0;
+            border: 1px solid #a7f3d0;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.02);
+        }
+
+        /* Banner Status Pemanasan Mingguan */
+        .weekly-warmup-banner {
+            background: #fcf8f2;
+            border: 1px solid var(--border-gold);
+            padding: 14px 18px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 12px rgba(184, 134, 11, 0.08);
+        }
+        .warmup-info h4 {
+            margin: 0 0 4px 0;
+            font-size: 13px;
+            color: var(--gold-dark);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 700;
+        }
+        .warmup-info p {
+            margin: 0;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+        .warmup-badge {
+            padding: 8px 14px;
+            border-radius: 16px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            text-align: center;
+            line-height: 1.3;
+        }
+        .badge-done {
+            background: #d1fae5;
+            color: #065f46;
+            border: 1px solid #6ee7b7;
+        }
+        .badge-pending {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fca5a5;
         }
 
         .form-group { 
-            margin-bottom: 20px; 
+            margin-bottom: 22px; 
         }
 
         label { 
@@ -82,42 +143,44 @@
             display: block; 
             margin-bottom: 8px; 
             font-size: 13px;
-            color: #475569;
+            color: var(--text-muted);
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
         }
 
         input[type="text"], input[type="date"], input[type="time"], input[type="number"], input[type="month"], select, textarea { 
             width: 100%; 
-            padding: 12px 14px; 
-            border: 1.5px solid var(--border-color); 
+            padding: 13px 16px; 
+            border: 1.5px solid var(--border-light); 
             border-radius: 10px; 
             box-sizing: border-box; 
             font-size: 14px; 
             font-family: inherit;
-            background: #fff;
+            background: #ffffff;
             color: var(--text-main);
             transition: all 0.2s ease;
+            box-shadow: inset 0 1px 2px rgba(0,0,0,0.03);
         }
 
         input:focus, select:focus, textarea:focus {
             outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.15);
+            border-color: var(--gold-main);
+            box-shadow: 0 0 0 3px rgba(184, 134, 11, 0.15), inset 0 1px 2px rgba(0,0,0,0.03);
         }
 
-        /* Opsi Tombol Pilihan Foto */
         .photo-options {
             display: flex;
-            gap: 10px;
+            gap: 12px;
             margin-bottom: 8px;
         }
 
         .btn-photo-opt {
             flex: 1;
-            padding: 10px;
-            background: #f1f5f9;
+            padding: 12px;
+            background: #f4efe6;
             color: var(--text-main);
-            border: 1.5px solid var(--border-color);
-            border-radius: 8px;
+            border: 1.5px solid var(--border-light);
+            border-radius: 10px;
             font-size: 13px;
             font-weight: 600;
             cursor: pointer;
@@ -127,16 +190,16 @@
         }
 
         .btn-photo-opt:hover {
-            background: #e2e8f0;
-            border-color: var(--primary);
-            color: var(--primary);
+            background: #eae2d0;
+            border-color: var(--gold-main);
+            color: var(--gold-dark);
         }
 
         .file-info {
             font-size: 12px;
             color: var(--text-muted);
             font-style: italic;
-            margin-top: 4px;
+            margin-top: 6px;
         }
 
         .row-group { 
@@ -149,106 +212,152 @@
 
         button { 
             width: 100%; 
-            padding: 14px; 
-            background: var(--primary); 
-            color: white; 
+            padding: 15px; 
+            background: var(--gold-gradient); 
+            color: #2c2416; 
             border: none; 
             border-radius: 10px; 
             font-size: 15px; 
             cursor: pointer; 
-            font-weight: 600; 
+            font-weight: 700; 
             margin-top: 10px; 
-            transition: background 0.2s, transform 0.1s;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 15px rgba(184, 134, 11, 0.25);
         }
 
         button:hover { 
-            background: var(--primary-hover); 
+            filter: brightness(1.05);
+            box-shadow: 0 6px 20px rgba(184, 134, 11, 0.35);
+            transform: translateY(-1px);
         }
 
         button:active {
-            transform: scale(0.99);
+            transform: translateY(1px);
         }
 
         button:disabled { 
             background: #cbd5e1; 
+            color: #64748b;
             cursor: not-allowed; 
+            box-shadow: none;
         }
         
         .action-box { 
-            background: #f0fdf4; 
-            padding: 20px; 
-            border-radius: 12px; 
-            margin-top: 32px; 
-            border: 1.5px solid #bbf7d0;
+            background: #fcf8f2; 
+            padding: 24px; 
+            border-radius: 14px; 
+            margin-top: 36px; 
+            border: 1.5px solid var(--border-light);
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.02);
         }
 
         .btn-pdf { 
-            background: #dc2626; 
-            margin-top: 12px;
+            background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%); 
+            color: white;
+            margin-top: 14px;
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.25);
         }
         .btn-pdf:hover { 
-            background: #b91c1c; 
+            background: linear-gradient(135deg, #f87171 0%, #991b1b 100%); 
+            box-shadow: 0 6px 20px rgba(239, 68, 68, 0.35);
         }
 
         .section-title {
             color: var(--text-main);
+            font-family: 'Cinzel', serif;
             text-align: center;
-            font-size: 18px;
-            margin-top: 36px;
-            margin-bottom: 16px;
+            font-size: 20px;
+            margin-top: 40px;
+            margin-bottom: 20px;
             font-weight: 700;
+            letter-spacing: 0.5px;
         }
 
+        /* Card Riwayat Standar */
         .history-card { 
-            border: 1.5px solid #e2e8f0; 
-            padding: 16px; 
-            border-radius: 12px; 
-            margin-bottom: 16px; 
+            border: 1.5px solid var(--border-light); 
+            padding: 20px; 
+            border-radius: 14px; 
+            margin-bottom: 20px; 
             background: #ffffff; 
             font-size: 13px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-            transition: transform 0.2s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            transition: all 0.2s ease;
         }
 
         .history-card:hover {
-            border-color: #cbd5e1;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            border-color: var(--gold-main);
+            box-shadow: 0 6px 16px rgba(184, 134, 11, 0.1);
+        }
+
+        /* Styling Khusus Hari Pemanasan */
+        .history-card.warmup-card {
+            border: 2px solid var(--gold-main);
+            background: #fffdf5;
+            box-shadow: 0 4px 15px rgba(184, 134, 11, 0.15);
+        }
+
+        .badge-pemanasan {
+            background: #fef3c7;
+            color: #92400e;
+            border: 1px solid #fde68a;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            margin-left: 8px;
+            display: inline-block;
         }
 
         .history-card img { 
             max-width: 100%; 
             height: auto; 
-            border-radius: 8px; 
-            margin-top: 12px; 
-            max-height: 200px; 
+            border-radius: 10px; 
+            margin-top: 16px; 
+            max-height: 220px; 
             object-fit: contain;
-            border: 1px solid #e2e8f0;
+            border: 1.5px solid var(--border-light);
         }
 
         .history-header { 
             display: flex; 
             justify-content: space-between; 
-            font-weight: 600; 
-            border-bottom: 1.5px solid #f1f5f9; 
-            padding-bottom: 8px; 
-            margin-bottom: 10px; 
-            color: var(--primary); 
+            align-items: center;
+            font-weight: 700; 
+            border-bottom: 1.5px solid #f4efe6; 
+            padding-bottom: 12px; 
+            margin-bottom: 16px; 
+            color: var(--gold-dark); 
             font-size: 14px;
         }
 
         .history-body-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 6px;
-            color: #475569;
+            gap: 10px;
+            background: #faf6ef;
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid var(--border-light);
+            color: var(--text-main);
+        }
+
+        .history-body-grid div {
+            padding: 2px 0;
+        }
+
+        .history-body-grid strong {
+            color: var(--gold-dark);
         }
 
         .kendala-text { 
             color: #991b1b; 
             background: #fef2f2; 
-            padding: 10px; 
+            padding: 12px; 
             border-radius: 8px; 
-            margin-top: 10px; 
+            margin-top: 14px; 
             font-weight: 500; 
             border: 1px solid #fecaca;
         }
@@ -257,19 +366,18 @@
             text-align: center; 
             color: var(--text-muted); 
             font-style: italic; 
-            padding: 20px;
+            padding: 24px;
         }
 
-        /* Area Cetak Print/PDF */
         #printArea { display: none; }
         @media print {
-            body { background: white; padding: 0; }
+            body { background: white !important; color: black !important; padding: 0; margin: 0; }
             .container { display: none; }
-            #printArea { display: block; }
+            #printArea { display: block; width: 100%; }
             #printArea table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 10px; }
             #printArea th, #printArea td { border: 1px solid #000; padding: 6px; text-align: center; }
             #printArea th { background-color: #f1f5f9; font-weight: bold; }
-            #printArea h2 { text-align: center; margin-bottom: 4px; font-size: 16px; }
+            #printArea h2 { text-align: center; margin-bottom: 4px; font-size: 16px; color: black; }
             #printArea h3 { text-align: center; margin: 0 0 2px 0; font-size: 12px; }
             #printArea p { text-align: center; margin-top: 0; font-size: 11px; }
             #printArea img { max-height: 50px; object-fit: cover; }
@@ -286,6 +394,15 @@
     </div>
     
     <div class="status-koneksi" id="statusInfo">Mengambil data dari server... 🔄</div>
+    
+    <!-- Widget Banner Status Pemanasan Mingguan -->
+    <div class="weekly-warmup-banner" id="weeklyWarmupBanner">
+        <div class="warmup-info">
+            <h4>Target Pemanasan Mingguan</h4>
+            <p id="warmupRangeText">Periode minggu ini (dihitung dari hari Minggu)</p>
+        </div>
+        <div id="warmupBadgeContainer" class="warmup-badge badge-pending">Memuat...</div>
+    </div>
     
     <form id="formGenset">
         <div class="row-group">
@@ -362,7 +479,6 @@
             <textarea id="keterangan" rows="3" placeholder="Tuliskan kendala jika ada..."></textarea>
         </div>
 
-        <!-- Input Bukti Foto dengan 2 Opsi -->
         <div class="form-group">
             <label>Bukti Foto (Opsional)</label>
             <div class="photo-options">
@@ -389,7 +505,6 @@
     </div>
 </div>
 
-<!-- Elemen Cetak Laporan -->
 <div id="printArea">
     <h3>RS HERMINA SOLO</h3>
     <h2>LAPORAN PEMERIKSAAN GENSET 650kVA</h2>
@@ -413,9 +528,7 @@
 </div>
 
 <script>
-    // ⬇️ MASUKKAN URL GOOGLE SCRIPT ANDA DI SINI ⬇️
     const URL_GOOGLE_SCRIPT = "https://script.google.com/macros/s/AKfycbw_DTsHNSlMoYosp7ErA1Wl6ymuCP2TnfTcidp0rwWSf6yHTIPGCrpT4NvCXBBSlIgm3g/exec";
-    // --------------------------------------------------
 
     let globalData = [];
     let selectedFile = null;
@@ -465,12 +578,55 @@
         reader.readAsDataURL(file);
     }
 
+    function checkWeeklyWarmupStatus() {
+        const badgeContainer = document.getElementById('warmupBadgeContainer');
+        const rangeText = document.getElementById('warmupRangeText');
+
+        if (!globalData || globalData.length === 0) {
+            badgeContainer.className = "warmup-badge badge-pending";
+            badgeContainer.innerText = "Belum Ada Data";
+            return;
+        }
+
+        const curr = new Date();
+        curr.setHours(23, 59, 59, 999);
+
+        const firstDayOfWeek = new Date(curr);
+        const day = curr.getDay(); // 0 = Minggu, 1 = Senin, dst.
+        firstDayOfWeek.setDate(curr.getDate() - day);
+        firstDayOfWeek.setHours(0, 0, 0, 0);
+
+        const lastDayOfWeek = new Date(firstDayOfWeek);
+        lastDayOfWeek.setDate(firstDayOfWeek.getDate() + 6);
+
+        const options = { day: 'numeric', month: 'short' };
+        rangeText.innerText = `Periode: ${firstDayOfWeek.toLocaleDateString('id-ID', options)} s.d ${lastDayOfWeek.toLocaleDateString('id-ID', options)}`;
+
+        // Cari record pemanasan di minggu ini
+        const warmupItem = globalData.find(item => {
+            if (!item.tanggal || item.pemanasan !== 'Iya') return false;
+            const itemDate = new Date(item.tanggal + 'T00:00:00');
+            return itemDate >= firstDayOfWeek && itemDate <= curr;
+        });
+
+        if (warmupItem) {
+            badgeContainer.className = "warmup-badge badge-done";
+            
+            // Format tanggal YYYY-MM-DD menjadi DD/MM/YYYY
+            const parts = warmupItem.tanggal.split('-');
+            const formattedDate = parts.length === 3 ? `${parts[2]}/${parts[1]}/${parts[0]}` : warmupItem.tanggal;
+            
+            badgeContainer.innerHTML = `✔️ Sudah Dilakukan<div style="font-size: 10px; font-weight: 600; margin-top: 3px; text-transform: none;">(Tgl ${formattedDate})</div>`;
+        } else {
+            badgeContainer.className = "warmup-badge badge-pending";
+            badgeContainer.innerText = "⚠️ Belum Dilakukan";
+        }
+    }
+
     function loadDataFromServer() {
         if(URL_GOOGLE_SCRIPT === "GANTI_DENGAN_URL_ANDA_DI_SINI") {
             document.getElementById('statusInfo').innerText = "⚠️ URL Google Script Belum Dimasukkan!";
             document.getElementById('statusInfo').style.color = "#dc2626";
-            document.getElementById('statusInfo').style.background = "#fef2f2";
-            document.getElementById('statusInfo').style.borderColor = "#fecaca";
             return;
         }
 
@@ -479,14 +635,12 @@
             .then(data => {
                 globalData = data;
                 renderHistory();
+                checkWeeklyWarmupStatus();
                 document.getElementById('statusInfo').innerText = "✔️ Terhubung dengan Server (Google Sheets)";
             })
             .catch(error => {
                 console.error('Error fetching data:', error);
                 document.getElementById('statusInfo').innerText = "❌ Gagal memuat data. Cek koneksi internet.";
-                document.getElementById('statusInfo').style.color = "#dc2626";
-                document.getElementById('statusInfo').style.background = "#fef2f2";
-                document.getElementById('statusInfo').style.borderColor = "#fecaca";
                 document.getElementById('historyContainer').innerHTML = '<p class="loading-text">Tidak ada data yang dapat ditampilkan.</p>';
             });
     }
@@ -498,6 +652,25 @@
         const filterBulan = document.getElementById('filterBulan').value;
         const filteredData = globalData.filter(item => item.tanggal && item.tanggal.startsWith(filterBulan));
         
+        // Urutkan data secara kronologis (tertua ke terbaru) untuk menghitung urutan pemanasan
+        const chronologicalData = [...filteredData].sort((a, b) => {
+            const dateTimeA = new Date(`${a.tanggal} ${a.jam || '00:00'}`);
+            const dateTimeB = new Date(`${b.tanggal} ${b.jam || '00:00'}`);
+            return dateTimeA - dateTimeB;
+        });
+
+        // Hitung nomor urut pemanasan di bulan tersebut
+        let counterPemanasan = 0;
+        const warmupMap = new Map();
+        chronologicalData.forEach(item => {
+            if (item.pemanasan === 'Iya') {
+                counterPemanasan++;
+                const key = `${item.tanggal}_${item.jam}`;
+                warmupMap.set(key, counterPemanasan);
+            }
+        });
+
+        // Urutkan data dari yang terbaru ke tertua untuk tampilan kartu
         const sortedData = [...filteredData].sort((a, b) => {
             const dateTimeA = new Date(`${a.tanggal} ${a.jam || '00:00'}`);
             const dateTimeB = new Date(`${b.tanggal} ${b.jam || '00:00'}`);
@@ -512,10 +685,22 @@
         sortedData.forEach(item => {
             let infoKendala = item.keterangan ? `<div class="kendala-text">📝 <strong>Kendala:</strong> ${item.keterangan}</div>` : '';
             let waktuPemanasan = item.pemanasan === 'Iya' ? `(${item.waktu || '-'} mnt)` : '';
+            
+            const key = `${item.tanggal}_${item.jam}`;
+            const isWarmup = item.pemanasan === 'Iya';
+            const warmupNo = warmupMap.get(key);
+
+            // Tentukan style khusus jika hari itu ada pemanasan
+            let cardClass = isWarmup ? 'history-card warmup-card' : 'history-card';
+            let badgeTag = isWarmup ? `<span class="badge-pemanasan">🔥 Pemanasan Ke-${warmupNo}</span>` : '';
+
             container.innerHTML += `
-                <div class="history-card">
+                <div class="${cardClass}">
                     <div class="history-header">
-                        <span>📅 ${item.tanggal}</span>
+                        <div>
+                            <span>📅 ${item.tanggal}</span>
+                            ${badgeTag}
+                        </div>
                         <span>⏰ ${item.jam} WIB</span>
                     </div>
                     <div class="history-body-grid">
@@ -570,7 +755,6 @@
                 document.getElementById('tanggal').valueAsDate = new Date();
                 selectedFile = null;
                 document.getElementById('fileInfoText').innerText = "Belum ada foto yang dipilih.";
-                document.getElementById('fileInfoText').style.color = "var(--text-muted)";
                 
                 btn.innerText = "🚀 Simpan ke Server";
                 btn.disabled = false;
@@ -588,7 +772,6 @@
 
     function printPDF() {
         const filterBulan = document.getElementById('filterBulan').value; 
-        
         if(!filterBulan) return alert('Pilih bulan terlebih dahulu!');
         
         const filteredData = globalData.filter(item => item.tanggal && item.tanggal.startsWith(filterBulan));
