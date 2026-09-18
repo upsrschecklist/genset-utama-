@@ -75,7 +75,7 @@
         .status-koneksi { 
             text-align: center; 
             font-size: 13px; 
-            margin-bottom: 20px; 
+            margin-bottom: 15px; 
             color: var(--success); 
             font-weight: 600;
             background: #ecfdf5;
@@ -86,6 +86,55 @@
             box-sizing: border-box;
             border: 1px solid #a7f3d0;
             box-shadow: inset 0 1px 3px rgba(0,0,0,0.02);
+        }
+
+        /* --- TAMBAHAN CSS: INDIKATOR HARI INI --- */
+        .status-hari-ini {
+            text-align: center;
+            padding: 12px 16px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            font-weight: 700;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            display: none; 
+        }
+        .status-sudah {
+            background-color: #d1fae5;
+            color: #047857;
+            border: 1px solid #a7f3d0;
+            display: block;
+        }
+        .status-belum {
+            background-color: #fee2e2;
+            color: #b91c1c;
+            border: 1px solid #fecaca;
+            animation: pulse-red 2s infinite;
+            display: block;
+        }
+
+        /* --- TAMBAHAN CSS: ALERT KENDALA AUTO-FILL --- */
+        .alert-kendala {
+            background: #fff1f2;
+            border: 2px solid #e11d48;
+            padding: 16px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            color: #9f1239;
+            box-shadow: 0 4px 12px rgba(225, 29, 72, 0.2);
+            display: none;
+            animation: slideDown 0.4s ease-out;
+        }
+
+        @keyframes pulse-red {
+            0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
+            70% { box-shadow: 0 0 0 6px rgba(239, 68, 68, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+        }
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         /* Banner Status Pemanasan Mingguan */
@@ -395,6 +444,10 @@
     
     <div class="status-koneksi" id="statusInfo">Mengambil data dari server... 🔄</div>
     
+    <!-- INDIKATOR HARI INI & KENDALA AKTIF -->
+    <div id="indikatorHariIni" class="status-hari-ini"></div>
+    <div id="alertKendala" class="alert-kendala"></div>
+    
     <!-- Widget Banner Status Pemanasan Mingguan -->
     <div class="weekly-warmup-banner" id="weeklyWarmupBanner">
         <div class="warmup-info">
@@ -420,7 +473,7 @@
             <div class="form-group">
                 <label>Posisi Panel AMF</label>
                 <select id="amf" required>
-                    <option value="Auto">Auto</option>
+                    <option value="Auto" selected>Auto</option> <!-- Default Auto -->
                     <option value="Manual">Manual</option>
                 </select>
             </div>
@@ -454,7 +507,7 @@
             <div class="form-group">
                 <label>Kapasitas BBM</label>
                 <select id="bbm" required>
-                    <option value="Penuh">Penuh</option>
+                    <option value="Penuh" selected>Penuh</option> <!-- Default Penuh -->
                     <option value="3/4">3/4</option>
                     <option value="1/2">1/2</option>
                     <option value="1/4">1/4</option>
@@ -464,7 +517,7 @@
                 <label>Pemanasan Genset?</label>
                 <select id="pemanasan" onchange="toggleWaktu()" required>
                     <option value="Iya">Iya</option>
-                    <option value="Tidak">Tidak</option>
+                    <option value="Tidak" selected>Tidak</option> <!-- Default Tidak -->
                 </select>
             </div>
         </div>
@@ -474,6 +527,7 @@
             <input type="number" id="waktu" placeholder="Contoh: 15" min="0">
         </div>
 
+        <!-- Kolom ini akan otomatis terisi jika ada kendala sebelumnya -->
         <div class="form-group">
             <label>Keterangan / Kendala (Opsional)</label>
             <textarea id="keterangan" rows="3" placeholder="Tuliskan kendala jika ada..."></textarea>
@@ -578,6 +632,63 @@
         reader.readAsDataURL(file);
     }
 
+    // --- FUNGSI CEK STATUS HARI INI ---
+    function cekStatusHariIni() {
+        const today = new Date();
+        const yyyy = today.getFullYear();
+        const mm = String(today.getMonth() + 1).padStart(2, '0');
+        const dd = String(today.getDate()).padStart(2, '0');
+        const dateStr = `${yyyy}-${mm}-${dd}`;
+
+        const isCheckedToday = globalData.some(item => item.tanggal === dateStr);
+        const indikator = document.getElementById('indikatorHariIni');
+
+        if (isCheckedToday) {
+            indikator.className = 'status-hari-ini status-sudah';
+            indikator.innerHTML = '✅ <strong>MANTAP!</strong> Pengecekan genset hari ini SUDAH dilakukan.';
+        } else {
+            indikator.className = 'status-hari-ini status-belum';
+            indikator.innerHTML = '⚠️ <strong>PERHATIAN:</strong> Pengecekan genset hari ini BELUM dilakukan!';
+        }
+    }
+
+    // --- FUNGSI CEK KENDALA & AUTO-FILL KETERANGAN ---
+    function cekKendalaAktif() {
+        if (!globalData || globalData.length === 0) return;
+
+        const sortedAll = [...globalData].sort((a, b) => {
+            const dateA = new Date(`${a.tanggal} ${a.jam || '00:00'}`);
+            const dateB = new Date(`${b.tanggal} ${b.jam || '00:00'}`);
+            return dateB - dateA;
+        });
+
+        const latest = sortedAll[0];
+        const alertBox = document.getElementById('alertKendala');
+        const inputKeterangan = document.getElementById('keterangan');
+
+        if (latest.keterangan && latest.keterangan.trim() !== '' && latest.keterangan !== '-') {
+            alertBox.style.display = 'block';
+            alertBox.innerHTML = `
+                🚨 <strong style="font-size:16px;">KENDALA MASIH AKTIF!</strong><br>
+                <div style="margin-top:5px; font-size:13px;">Pengecekan terakhir (Tanggal ${latest.tanggal} Jam ${latest.jam}) melaporkan kendala:</div>
+                <div style="margin: 10px 0; padding: 12px; background: #fff; border-left: 4px solid #e11d48; border-radius: 6px; color: #7f1d1d; font-weight: 600; font-size:14px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                    "${latest.keterangan}"
+                </div>
+                <div style="font-size: 12px; color: #9f1239; margin-top:5px; background: #ffe4e6; padding: 8px; border-radius: 6px;">
+                    📝 <strong>Info:</strong> Teks kendala ini sudah disalin otomatis ke kolom <strong>Keterangan</strong> di bawah.<br>
+                    • Jika <b>belum</b> diperbaiki: Langsung saja klik Simpan (tidak perlu ngetik ulang).<br>
+                    • Jika <b>sudah</b> diperbaiki: Silakan <strong>HAPUS teks</strong> di kolom keterangan sebelum menyimpan.
+                </div>
+            `;
+            // Auto-fill teks kendala ke textarea agar teknisi tidak capek ngetik
+            inputKeterangan.value = latest.keterangan;
+        } else {
+            alertBox.style.display = 'none';
+            // Pastikan kosong kalau memang tidak ada kendala
+            inputKeterangan.value = ''; 
+        }
+    }
+
     function checkWeeklyWarmupStatus() {
         const badgeContainer = document.getElementById('warmupBadgeContainer');
         const rangeText = document.getElementById('warmupRangeText');
@@ -636,6 +747,8 @@
                 globalData = data;
                 renderHistory();
                 checkWeeklyWarmupStatus();
+                cekStatusHariIni(); // <-- Memanggil indikator cek hari ini
+                cekKendalaAktif();  // <-- Memanggil fitur auto-fill kendala
                 document.getElementById('statusInfo').innerText = "✔️ Terhubung dengan Server (Google Sheets)";
             })
             .catch(error => {
@@ -683,7 +796,7 @@
         }
 
         sortedData.forEach(item => {
-            let infoKendala = item.keterangan ? `<div class="kendala-text">📝 <strong>Kendala:</strong> ${item.keterangan}</div>` : '';
+            let infoKendala = item.keterangan && item.keterangan !== '-' ? `<div class="kendala-text">📝 <strong>Kendala:</strong> ${item.keterangan}</div>` : '';
             let waktuPemanasan = item.pemanasan === 'Iya' ? `(${item.waktu || '-'} mnt)` : '';
             
             const key = `${item.tanggal}_${item.jam}`;
@@ -753,6 +866,13 @@
                 alert('Berhasil! Data tersimpan di server.');
                 document.getElementById('formGenset').reset();
                 document.getElementById('tanggal').valueAsDate = new Date();
+                
+                // Setel ulang ke nilai Default untuk Genset Utama
+                document.getElementById('amf').value = 'Auto';
+                document.getElementById('bbm').value = 'Penuh';
+                document.getElementById('pemanasan').value = 'Tidak';
+                toggleWaktu(); 
+                
                 selectedFile = null;
                 document.getElementById('fileInfoText').innerText = "Belum ada foto yang dipilih.";
                 
@@ -810,7 +930,11 @@
         window.print();
     }
 
-    window.onload = loadDataFromServer;
+    // Jalankan load data & sembunyikan kotak waktu jika defaultnya 'Tidak' saat buka web
+    window.onload = function() {
+        toggleWaktu(); 
+        loadDataFromServer();
+    };
 </script>
 </body>
 </html>
